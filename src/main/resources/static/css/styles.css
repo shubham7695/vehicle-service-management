@@ -1,0 +1,20 @@
+body { margin:0; font-family:Segoe UI; color:#eee; background:#111; }
+header { background:#222; padding:20px; text-align:center; }
+.container { max-width:900px; margin:30px auto; padding:10px; }
+.card, .data-table, .auth-box, form { background:#1f1f1f; border-radius:8px; padding:20px; margin-bottom:20px; }
+.card-grid { display:flex; gap:20px; flex-wrap:wrap; }
+.card { flex:1; min-width:200px; text-align:center; border:1px solid #333; }
+.card a { display:inline-block; margin-top:10px; color:#0af; text-decoration:none; }
+.card a:hover { text-decoration:underline; }
+.data-table { width:100%; border-collapse:collapse; }
+.data-table th, .data-table td { border:1px solid #333; padding:12px; }
+.actions { display:flex; justify-content:space-between; margin-bottom:10px; }
+.actions a { text-decoration:none; background:#28a745; padding:8px 12px; border-radius:6px; color:#fff; }
+.actions a:hover { background:#218838; }
+button { padding:10px 15px; background:#007bff; border:none; border-radius:6px; color:#fff; cursor:pointer; }
+button:hover { background:#0056b3; }
+.auth-page { display:flex; align-items:center; justify-content:center; height:100vh; }
+.auth-box { width:320px; padding:20px; text-align:center; }
+.auth-box input { width:100%; margin:10px 0; padding:10px; border:none; border-radius:4px; }
+.error { color:#ff4d4d; }
+.info { color:#4dff88; }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${mechanic.id} != null ? 'Edit Mechanic' : 'Add Mechanic'">Mechanic Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Vehicle Service Management</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/mechanics}">Manage Mechanics</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 th:text="${mechanic.id} != null ? 'Edit Mechanic' : 'Add Mechanic'"></h3>
+        </div>
+        <div class="card-body">
+            <form th:action="@{${mechanic.id} != null ? '/admin/mechanics/edit/' + ${mechanic.id} : '/admin/mechanics/add'}"
+                  th:object="${mechanic}" method="post">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" th:field="*{name}" class="form-control" placeholder="Enter mechanic name" required />
+                </div>
+                <div class="form-group">
+                    <label>Specialization</label>
+                    <input type="text" th:field="*{specialization}" class="form-control" placeholder="Enter specialization" required />
+                </div>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Save
+                </button>
+                <a th:href="@{/admin/mechanics}" class="btn btn-secondary ml-2">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

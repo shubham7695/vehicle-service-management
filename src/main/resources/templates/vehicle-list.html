@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Vehicles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: #2c2c2c;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            text-align: center;
+            color: #17a2b8;
+            margin-bottom: 20px;
+        }
+
+        .button.add {
+            background-color: #28a745;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #444;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3a3a3a;
+            color: #17a2b8;
+        }
+
+        td {
+            background-color: #2c2c2c;
+        }
+
+        tr:hover td {
+            background-color: #383838;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        li {
+            list-style-type: disc;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>My Vehicles</h2>
+
+    <!-- Show "Add Vehicle" only if user has CUSTOMER role -->
+    <a th:if="${#authorization.expression('hasAuthority(''ROLE_CUSTOMER'')')}" th:href="@{/vehicles/new}" class="button add">Add New Vehicle</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>VIN</th>
+            <th>Registration No</th>
+            <th>Service Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- If no vehicles -->
+        <tr th:if="${#lists.isEmpty(vehicles)}">
+            <td colspan="6" class="no-data">No vehicles found.</td>
+        </tr>
+
+        <!-- Loop through vehicles -->
+        <tr th:each="vehicle : ${vehicles}">
+            <td th:text="${vehicle.make}">Make</td>
+            <td th:text="${vehicle.model}">Model</td>
+            <td th:text="${vehicle.year}">Year</td>
+            <td th:text="${vehicle.vin}">VIN</td>
+            <td th:text="${vehicle.registrationNumber}">RegNo</td>
+            <td>
+                <ul th:if="${vehicle.serviceRequests != null && !vehicle.serviceRequests.isEmpty()}">
+                    <li th:each="req : ${vehicle.serviceRequests}" th:text="${req.status}">Status</li>
+                </ul>
+                <span th:if="${vehicle.serviceRequests == null || vehicle.serviceRequests.isEmpty()}">No service request</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Service Request</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #eee;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #222;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            text-align: center;
+            color: #17a2b8;
+        }
+
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Create Service Request</h2>
+    <form th:action="@{'/vehicles/' + ${vehicleId} + '/requests/new'}"
+          th:object="${request}" method="post">
+
+        <label>Description</label>
+        <textarea th:field="*{description}" placeholder="Describe the issue" required></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Mechanics</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Vehicle Service Management</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/mechanics}">Manage Mechanics</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/requests}">Manage Requests</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Mechanics List</h2>
+        <a class="btn btn-primary" th:href="@{/admin/mechanics/add}">
+            <i class="fas fa-plus"></i> Add Mechanic
+        </a>
+    </div>
+
+    <div th:if="${mechanics.empty}">
+        <div class="alert alert-warning">No mechanics found.</div>
+    </div>
+
+    <table class="table table-striped table-bordered table-hover" th:if="${!mechanics.empty}">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="mechanic : ${mechanics}">
+            <td th:text="${mechanic.id}"></td>
+            <td th:text="${mechanic.name}"></td>
+            <td th:text="${mechanic.specialization}"></td>
+            <td class="text-center">
+                <a class="btn btn-sm btn-info mr-1" th:href="@{'/admin/mechanics/edit/' + ${mechanic.id}}">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a class="btn btn-sm btn-danger" th:href="@{'/admin/mechanics/delete/' + ${mechanic.id}}"
+                   onclick="return confirm('Are you sure you want to delete this mechanic?');">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-outline-secondary" th:href="@{/}">← Back to Home</a>
+</div>
+</body>
+</html>

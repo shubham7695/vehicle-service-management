@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Service Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        form {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align: center;">Edit Service Request</h2>
+
+<form th:action="@{'/requests/update/' + ${request.id}}" method="post" th:object="${request}">
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Description:</label>
+    <input type="text" th:field="*{description}" required />
+
+    <label>Status:</label>
+    <select th:field="*{status}">
+        <option value="NEW">NEW</option>
+        <option value="IN_PROGRESS">IN_PROGRESS</option>
+        <option value="COMPLETED">COMPLETED</option>
+    </select>
+
+    <label>Assign Mechanic:</label>
+    <select name="mechanicId" required>
+        <option value="" disabled>Select Mechanic</option>
+        <option th:each="m : ${mechanics}"
+                th:value="${m.id}"
+                th:text="${m.name}"
+                th:selected="${request.mechanic != null and request.mechanic.id == m.id}">
+        </option>
+    </select>
+
+    <button type="submit">Update</button>
+</form>
+
+<a th:href="@{/vehicles}">← Back to My Vehicles</a>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Vehicle Service Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark px-3">
+    <a class="navbar-brand" href="#">Vehicle Service Management</a>
+    <div>
+        <!-- Only visible to ROLE_CUSTOMER -->
+        <a class="btn btn-outline-light btn-sm mx-1"
+           th:href="@{/vehicles}"
+           sec:authorize="hasAuthority('ROLE_CUSTOMER')">My Vehicles</a>
+
+        <!-- Only visible to ROLE_ADMIN -->
+        <a class="btn btn-outline-light btn-sm mx-1"
+           th:href="@{/admin/mechanics}"
+           sec:authorize="hasAuthority('ROLE_ADMIN')">Manage Mechanics</a>
+
+        <!-- Always visible -->
+        <a class="btn btn-outline-light btn-sm mx-1" th:href="@{/logout}">Logout</a>
+    </div>
+</nav>
+
+<div class="container mt-4 text-center">
+    <h1>Welcome to Vehicle Service Management</h1>
+    <p>This is your dashboard.</p>
+
+    <!-- Optional role message -->
+    <p sec:authorize="hasAuthority('ROLE_ADMIN')">Logged in as <strong>Admin</strong>.</p>
+    <p sec:authorize="hasAuthority('ROLE_CUSTOMER')">Logged in as <strong>Customer</strong>.</p>
+</div>
+</body>
+</html>

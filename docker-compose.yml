@@ -1,0 +1,29 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Shubham@123
+      MYSQL_DATABASE: vsmsdb
+    ports:
+      - "3306:3306"
+    networks:
+      - vsms-net
+
+  vehicle-service-app:
+    build: .
+    container_name: vehicle-service-app
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    networks:
+      - vsms-net
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/vsmsdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Shubham@123
+
+networks:
+  vsms-net:
