@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: vehicle-service-app
+    env: docker
+    plan: free
+    repo: https://github.com/shubham210804/vehicle-service-management
+    branch: master
+    dockerfilePath: Dockerfile
+    dockerContext: .
+    autoDeploy: true
